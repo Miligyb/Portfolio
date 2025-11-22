@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Nature Style</title>
+    <title>Portfolio | Light Nature</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --forest-dark: #0f2218;
-            --forest-mid: #1a3c2a;
-            --leaf-light: #8daf7e;
-            --flower-pink: #e0aaff;
-            --flower-yellow: #fde68a;
+            /* Светлая палитра */
+            --bg-start: #f0fdf4; /* green-50 */
+            --bg-end: #d1fae5;   /* green-100 */
+            --text-main: #064e3b; /* green-900 */
+            --text-muted: #376f50;
+            --accent-green: #10b981;
+            
+            /* Цвета для парящих частиц (теперь это скорее пыльца или листья) */
+            --particle-color: #86efac;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--forest-dark);
-            background: radial-gradient(circle at top left, #1a3c2a, #05110b);
-            color: #ecfdf5;
+            background: radial-gradient(circle at top left, #ffffff, #dcfce7, #d1fae5);
+            color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
@@ -29,48 +32,39 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Анимация фона (частицы/светлячки) */
-        .firefly {
+        /* Анимация частиц (лесная пыльца) */
+        .pollen {
             position: fixed;
             left: 50%;
             top: 50%;
-            width: 0.4vw;
-            height: 0.4vw;
-            margin: -0.2vw 0 0 9.8vw;
+            width: 0.6vw;
+            height: 0.6vw;
+            margin: -0.3vw 0 0 -0.3vw;
+            background: rgba(167, 243, 208, 0.6); /* Светло-зеленый */
+            border-radius: 50%;
             animation: ease 200s alternate infinite;
             pointer-events: none;
             z-index: 0;
+            filter: blur(1px);
         }
 
-        .firefly::before,
-        .firefly::after {
+        .pollen::before {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            transform-origin: -10vw;
-        }
-
-        .firefly::before {
-            background: rgba(141, 175, 126, 0.4);
-            opacity: 0.4;
+            background: rgba(52, 211, 153, 0.3);
             animation: drift ease alternate infinite;
         }
 
-        .firefly::after {
-            background: white;
-            opacity: 0;
-            box-shadow: 0 0 0vw 0vw yellow;
-            animation: drift ease alternate infinite, flash ease infinite;
-        }
-
-        /* Glassmorphism Card Style */
+        /* Glassmorphism Light Card Style */
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.45); /* Более прозрачный белый */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(6, 78, 59, 0.05), 0 2px 4px -1px rgba(6, 78, 59, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -86,10 +80,10 @@
             background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.6),
                 transparent
             );
-            transition: 0.5s;
+            transition: 0.6s;
         }
 
         .glass-card:hover::before {
@@ -97,70 +91,64 @@
         }
 
         .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(141, 175, 126, 0.5);
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 20px 25px -5px rgba(6, 78, 59, 0.1), 0 10px 10px -5px rgba(6, 78, 59, 0.04);
+            border-color: #10b981; /* Зеленая рамка при наведении */
         }
 
-        /* Цветовой акцент для кнопок */
+        /* Иконка стрелочки */
         .link-icon {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
         .glass-card:hover .link-icon {
             transform: rotate(45deg);
-            color: var(--flower-pink);
+            color: #059669;
         }
 
-        /* Telegram Button Special Style */
+        /* Telegram Button */
         .tg-btn {
-            background: linear-gradient(135deg, #2AABEE 0%, #229ED9 100%);
-            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.3);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
         .tg-btn:hover {
-            box-shadow: 0 6px 20px rgba(42, 171, 238, 0.5);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
             transform: translateY(-2px);
         }
 
-        /* Animation keyframes */
+        /* Animations */
         @keyframes drift {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes flash {
-            0%, 30%, 100% { opacity: 0; box-shadow: 0 0 0vw 0vw yellow; }
-            5% { opacity: 1; box-shadow: 0 0 2vw 0.4vw #fde68a; }
+            0% { transform: rotate(0deg) translate(0,0); }
+            100% { transform: rotate(360deg) translate(20px, 20px); }
         }
 
-        /* Улучшенная и ускоренная анимация прыжка */
         @keyframes bounce-quick {
             0%, 100% { transform: translateY(0) scale(1); }
             40% { transform: translateY(-15px) scale(1.05); }
-            60% { transform: translateY(0) scale(0.95); } /* Небольшое сплющивание при приземлении */
+            60% { transform: translateY(0) scale(0.95); }
         }
         
         .animate-bounce-quick {
-            /* 0.35s для быстрого и четкого прыжка */
             animation: bounce-quick 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Custom Scrollbar */
+        /* Custom Scrollbar (Dark Green thumb) */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0f2218;
+            background: #ecfdf5;
         }
         ::-webkit-scrollbar-thumb {
-            background: #3d6e54;
+            background: #6ee7b7;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #568f70;
+            background: #34d399;
         }
 
         .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
+            animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
             transform: translateY(20px);
         }
@@ -175,49 +163,50 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
 
     </style>
 </head>
-<body class="antialiased selection:bg-green-300 selection:text-green-900">
+<body class="antialiased selection:bg-emerald-200 selection:text-emerald-900">
 
-    <!-- Background Fireflies Container (Populated by JS) -->
-    <div id="fireflies-container"></div>
+    <!-- Background Pollen Container -->
+    <div id="pollen-container"></div>
 
-    <div class="relative z-10 max-w-4xl mx-auto px-6 py-12 md:py-20 min-h-screen flex flex-col justify-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-12 md:py-20 min-h-screen flex flex-col justify-center">
         
         <!-- Header Section -->
         <header class="text-center mb-16 fade-in-up">
-            <!-- ВАЖНО: id="icon-wrapper" перенесен сюда, чтобы прыгал весь блок (фон + иконка) -->
-            <div id="icon-wrapper" class="inline-block p-1 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 mb-6 cursor-pointer select-none transition-transform active:scale-95">
-                <div class="w-24 h-24 rounded-full bg-[#1a3c2a] flex items-center justify-center border-4 border-[#0f2218]">
-                   <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            <div id="icon-wrapper" class="inline-block p-1 rounded-full bg-gradient-to-tr from-emerald-300 to-green-500 mb-6 cursor-pointer select-none transition-transform active:scale-95 shadow-lg shadow-emerald-200">
+                <div class="w-24 h-24 rounded-full bg-white flex items-center justify-center border-4 border-[#f0fdf4]">
+                   <!-- Icon: Leaf/Nature (Darker green for contrast) -->
+                   <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </div>
             </div>
-            <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 via-emerald-100 to-teal-200 mb-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-green-800 to-emerald-600 mb-4 drop-shadow-sm">
                 Портфолио
             </h1>
         </header>
 
-        <!-- Projects Grid -->
-        <main class="grid gap-6 md:grid-cols-2 mb-16">
+        <!-- Projects Grid 
+             Изменил grid-cols: на больших экранах (lg) теперь 3 колонки, чтобы вместить слоты -->
+        <main class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-16">
             
             <!-- Card 1: Hajime -->
             <a href="https://miligyb.github.io/Hajime/" target="_blank" class="glass-card p-8 rounded-2xl group fade-in-up delay-100 block decoration-0">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 rounded-lg bg-green-900/30 text-green-300 group-hover:bg-green-800/50 transition-colors">
-                        <!-- Icon: Book/History -->
+                    <div class="p-3 rounded-lg bg-green-100 text-emerald-600 group-hover:bg-green-200 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="link-icon h-5 w-5 text-gray-400 group-hover:text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="link-icon h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-semibold mb-2 text-emerald-50 group-hover:text-white">История Hajime</h3>
-                <p class="text-sm text-gray-400 group-hover:text-gray-300 leading-relaxed">
+                <h3 class="text-xl font-bold mb-2 text-green-900">История Hajime</h3>
+                <p class="text-sm text-green-700/80 leading-relaxed font-medium">
                     Сайт который погрузит вас в историю любимой группы моего друга для которого был создан этот сайт
                 </p>
             </a>
@@ -225,83 +214,98 @@
             <!-- Card 2: Price List -->
             <a href="https://miligyb.github.io/price/" target="_blank" class="glass-card p-8 rounded-2xl group fade-in-up delay-200 block decoration-0">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-3 rounded-lg bg-green-900/30 text-green-300 group-hover:bg-green-800/50 transition-colors">
-                        <!-- Icon: Tag/Price -->
+                    <div class="p-3 rounded-lg bg-green-100 text-emerald-600 group-hover:bg-green-200 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                         </svg>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="link-icon h-5 w-5 text-gray-400 group-hover:text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="link-icon h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-semibold mb-2 text-emerald-50 group-hover:text-white">Прайс лист</h3>
-                <p class="text-sm text-gray-400 group-hover:text-gray-300 leading-relaxed">
+                <h3 class="text-xl font-bold mb-2 text-green-900">Прайс лист</h3>
+                <p class="text-sm text-green-700/80 leading-relaxed font-medium">
                     Ознакомьтесь с актуальными ценами на услуги и предложения.
+                </p>
+            </a>
+
+            <!-- Card 3: Slots (New) -->
+            <a href="https://miligyb.github.io/Slots/" target="_blank" class="glass-card p-8 rounded-2xl group fade-in-up delay-300 block decoration-0">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="p-3 rounded-lg bg-green-100 text-emerald-600 group-hover:bg-green-200 transition-colors">
+                        <!-- Icon: Chip/Game -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="link-icon h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-green-900">Слоты</h3>
+                <p class="text-sm text-green-700/80 leading-relaxed font-medium">
+                    Мини игра казино сделаная на коленке за пол часа
                 </p>
             </a>
 
         </main>
 
         <!-- Footer / Contact -->
-        <footer class="text-center fade-in-up delay-300">
-            <p class="mb-6 text-green-200/60 text-sm">Есть вопросы или предложения?</p>
+        <footer class="text-center fade-in-up delay-400">
+            <p class="mb-6 text-green-800/70 text-sm font-medium">Есть вопросы или предложения?</p>
             
-            <a href="https://t.me/CAMSPB" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 rounded-full tg-btn text-white font-semibold transition-all active:scale-95 group">
+            <a href="https://t.me/CAMSPB" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 rounded-full tg-btn text-white font-semibold transition-all active:scale-95 group shadow-lg shadow-blue-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg>
                 <span>Написать мне в Telegram</span>
             </a>
 
-            <div class="mt-12 flex justify-center items-center gap-2 opacity-30">
-                <div class="w-1 h-1 rounded-full bg-emerald-500"></div>
-                <div class="w-1 h-1 rounded-full bg-emerald-500"></div>
-                <div class="w-1 h-1 rounded-full bg-emerald-500"></div>
+            <div class="mt-12 flex justify-center items-center gap-2 opacity-50">
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-400"></div>
             </div>
         </footer>
 
     </div>
 
-    <!-- Script for dynamic background elements and interactions -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Fireflies Animation ---
-            const container = document.getElementById('fireflies-container');
-            const fireflyCount = 15;
+            // --- Pollen/Dust Animation (вместо Fireflies) ---
+            const container = document.getElementById('pollen-container');
+            const particleCount = 20;
 
-            for (let i = 0; i < fireflyCount; i++) {
-                const firefly = document.createElement('div');
-                firefly.classList.add('firefly');
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('pollen');
                 
+                // Случайные позиции и анимация
                 const randomTop = Math.random() * 100;
                 const randomLeft = Math.random() * 100;
-                const randomDuration = (Math.random() * 10 + 10) + 's';
-                const randomDelay = (Math.random() * 5) + 's';
-
-                firefly.style.top = randomTop + 'vh';
-                firefly.style.left = randomLeft + 'vw';
-                firefly.style.animationDuration = randomDuration;
-                firefly.style.animationDelay = randomDelay;
+                const randomDuration = (Math.random() * 20 + 20) + 's'; // Медленное парение
+                const randomDelay = (Math.random() * 10) + 's';
                 
-                container.appendChild(firefly);
+                // Случайный размер для разнообразия
+                const randomScale = (Math.random() * 0.5 + 0.5);
+
+                particle.style.top = randomTop + 'vh';
+                particle.style.left = randomLeft + 'vw';
+                particle.style.animationDuration = randomDuration;
+                particle.style.animationDelay = randomDelay;
+                particle.style.transform = `scale(${randomScale})`;
+                
+                container.appendChild(particle);
             }
 
             // --- Header Icon Click Animation ---
-            // Теперь выбираем общий контейнер с ID icon-wrapper
             const iconWrapper = document.getElementById('icon-wrapper');
             
             iconWrapper.addEventListener('click', () => {
-                // Удаляем класс, если он есть, чтобы сбросить анимацию (хак для быстрого клика)
                 iconWrapper.classList.remove('animate-bounce-quick');
-                
-                // Принудительная перерисовка (reflow), чтобы браузер понял, что класс удален
-                void iconWrapper.offsetWidth;
-
-                // Добавляем класс снова
+                void iconWrapper.offsetWidth; // Trigger reflow
                 iconWrapper.classList.add('animate-bounce-quick');
                 
-                // Слушаем конец анимации для очистки (опционально, но полезно для чистоты)
                 iconWrapper.addEventListener('animationend', () => {
                     iconWrapper.classList.remove('animate-bounce-quick');
                 }, { once: true });
